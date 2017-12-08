@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.q_thjen.mmessage.Activity.StatusActivity">
+
+    <include layout="@layout/tool_bar_layout"
+        android:id="@+id/tbar_status"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="@dimen/marginTop"
+        android:id="@+id/et_statusUpdate"
+        android:layout_below="@+id/tbar_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_marginTop="@dimen/marginTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_stUpdate"
+        android:layout_below="@+id/et_statusUpdate"
+        android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<resources>
+
+    <dimen name="marginTop">16dp</dimen>
+    <dimen name="imagesize">150dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="imageUser">70dp</dimen>
+    <dimen name="tvUser">35dp</dimen>
+    <dimen name="imageUserProfile">220dp</dimen>
+
+    <dimen name="textCreateAccount">20sp</dimen>
+
+</resources>

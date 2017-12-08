@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "422691313335",
+    "firebase_url": "https://fir-5dcad.firebaseio.com",
+    "project_id": "fir-5dcad",
+    "storage_bucket": "fir-5dcad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422691313335:android:d323dac3a73bee72",
+        "android_client_info": {
+          "package_name": "com.example.q_thjen.mmessage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422691313335-8kjid0v6ovjobi43mp5mdsi6l18buofj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQnjhPyB_mpV-02h3al9QGoOel6Er4c0w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

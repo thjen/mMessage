@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">mMessage</string>
+    <string name="createAccount">Create a New Account</string>
+    <string name="name">Your Name</string>
+    <string name="email">Your Email</string>
+    <string name="pass">Your Password</string>
+    <string name="Create">Create Account</string>
+    <string name="signin">Sign In</string>
+    <string name="tvSign">Sign in To Your Account</string>
+    <string name="logout">Log Out</string>
+    <string name="alluser">All Users</string>
+    <string name="accountsetting">Account Setting</string>
+    <string name="registeruser">Register User</string>
+    <string name="progressRegister">Please wait while we create your account!</string>
+    <string name="someError">Cannot sign in. Please check the form and try again.</string>
+    <string name="home">Home</string>
+    <string name="pleaseEnter">You are not enter name or email or password!</string>
+    <string name="progressLogin">Please wait while we check your credentials!</string>
+    <string name="logging">Logging In</string>
+    <string name="tabChat">Chats</string>
+    <string name="tabRequest">Requests</string>
+    <string name="tabFriend">Friends</string>
+    <string name="error">Error!</string>
+    <string name="acStatus">Account Status</string>
+    <string name="svChange">Saving Changes</string>
+    <string name="waitSvStatus">Please wait while we save the changes</string>
+    <string name="someErrorSv">There was some error in saving changes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

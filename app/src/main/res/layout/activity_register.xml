@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.q_thjen.mmessage.Activity.RegisterActivity">
+
+    <include layout="@layout/tool_bar_layout"
+        android:id="@+id/tbar_register"/>
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/textBlack"
+        android:textSize="@dimen/textCreateAccount"
+        android:layout_below="@+id/tbar_register"
+        android:id="@+id/tv1"
+        android:text="@string/createAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.TextInputLayout
+        android:hint="@string/name"
+        android:layout_below="@+id/tv1"
+        android:id="@+id/et_nameCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:hint="@string/email"
+        android:layout_below="@+id/et_nameCreate"
+        android:id="@+id/et_accountCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:hint="@string/pass"
+        android:layout_below="@+id/et_accountCreate"
+        android:id="@+id/et_passCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:textAllCaps="false"
+        android:text="@string/Create"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/et_passCreate"
+        android:id="@+id/bt_createDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
