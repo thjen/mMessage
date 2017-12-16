@@ -6,6 +6,8 @@
     <dimen name="imageUser">70dp</dimen>
     <dimen name="tvUser">35dp</dimen>
     <dimen name="imageUserProfile">220dp</dimen>
+    <dimen name="_36dp">36dp</dimen>
+    <dimen name="_18dp">18dp</dimen>
 
     <dimen name="textCreateAccount">20sp</dimen>
 

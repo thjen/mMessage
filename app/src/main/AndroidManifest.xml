@@ -7,11 +7,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".Utils.Chat"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-
         <activity
             android:name=".Activity.MainActivity"
             android:label="@string/app_name"
@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.StartActivity"
             android:label="@string/app_name"
@@ -35,22 +34,18 @@
             android:label="@string/app_name"
             android:parentActivityName=".Activity.StartActivity"
             android:theme="@style/AppThemeNoActionBar" />
-
         <activity
             android:name=".Activity.LoginActivity"
             android:label="@string/app_name"
             android:parentActivityName=".Activity.StartActivity"
             android:theme="@style/AppThemeNoActionBar" />
-
         <activity
             android:name=".Activity.SettingActivity"
             android:theme="@style/AppThemeNoActionBar" />
-
         <activity
             android:name=".Activity.StatusActivity"
             android:parentActivityName=".Activity.SettingActivity"
             android:theme="@style/AppThemeNoActionBar" />
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->
@@ -58,15 +53,15 @@
         <activity
             android:name=".Activity.UsersActivity"
             android:parentActivityName=".Activity.MainActivity"
-            android:theme="@style/AppThemeNoActionBar">
+            android:theme="@style/AppThemeNoActionBar"></activity>
+        <activity
+            android:name=".Activity.ProfileUsersActivity"
+            android:theme="@style/AppThemeNoActionBar"></activity>
+        <activity android:name=".Activity.ChatActivity"
+            android:theme="@style/AppThemeNoActionBar"
+            android:parentActivityName=".Activity.MainActivity">
 
         </activity>
-
-        <activity android:name=".Activity.ProfileUsersActivity"
-            android:theme="@style/AppThemeNoActionBar">
-
-        </activity>
-
     </application>
 
 </manifest>

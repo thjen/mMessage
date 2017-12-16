@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/marginTop"
+    android:layout_marginRight="@dimen/marginTop"
+    android:layout_marginTop="@dimen/marginTop">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/user"
+        android:id="@+id/civ_userChatLayout"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/marginTop"
+        android:layout_toRightOf="@+id/civ_userChatLayout"
+        android:id="@+id/tv_nameChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginLeft="@dimen/_10dp"
+        android:layout_toRightOf="@+id/tv_nameChat"
+        android:id="@+id/tv_timeChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@+id/tv_nameChat"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/textWhite"
+        android:id="@+id/tv_userChatLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="17dp"
+        android:layout_toRightOf="@+id/civ_userChatLayout"
+        android:background="@drawable/message"/>
+    
+</RelativeLayout>

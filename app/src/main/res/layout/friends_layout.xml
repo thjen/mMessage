@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/marginTop">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:src="@drawable/user"
+        android:id="@+id/civ_friendsLayout"
+        android:layout_width="@dimen/imageUser"
+        android:layout_height="@dimen/imageUser" />
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:weightSum="2"
+        android:layout_toRightOf="@+id/civ_friendsLayout"
+        android:layout_marginLeft="@dimen/_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tvUser">
+
+        <TextView
+            android:gravity="center_vertical"
+            android:textSize="@dimen/textCreateAccount"
+            android:id="@+id/tv_nameFriendsLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.99"/>
+
+        <ImageView
+            android:visibility="invisible"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/civ_online"
+            android:background="@drawable/bt_online"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_width="@dimen/marginTop"
+            android:layout_height="@dimen/marginTop" />
+
+    </LinearLayout>
+
+    <TextView
+        android:paddingLeft="@dimen/_10dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:id="@+id/tv_statusFriendsLayout"
+        android:layout_below="@+id/ll1"
+        android:layout_toRightOf="@+id/civ_friendsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tvUser" />
+
+</RelativeLayout>

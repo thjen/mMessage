@@ -15,10 +15,14 @@ import com.example.q_thjen.mmessage.Adapter.ViewPaperAdapter;
 import com.example.q_thjen.mmessage.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private DatabaseReference mUserRef;
 
     private Toolbar tbar_main;
     private ViewPaperAdapter adapter;
@@ -38,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tablayout_main);
 
         auth = FirebaseAuth.getInstance();
+        if ( auth.getCurrentUser() != null) {
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(auth.getCurrentUser().getUid());
+        }
 
         /** set adapter **/
         adapter = new ViewPaperAdapter(getSupportFragmentManager(), getResources().getString(R.string.tabRequest),
@@ -56,6 +63,22 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = auth.getCurrentUser();
         if ( currentUser == null ) {
             StartToStart();
+        } else {
+            /** add trạng thái **/
+            mUserRef.child("online").setValue("true");
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        /** add trạng thái **/
+        if (currentUser != null) {
+            mUserRef.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
         }
 
     }

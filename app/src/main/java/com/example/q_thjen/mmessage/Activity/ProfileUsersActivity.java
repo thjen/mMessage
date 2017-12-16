@@ -23,6 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProfileUsersActivity extends AppCompatActivity {
 
     private TextView mTv_nameProfile, mTv_statusProfile, mTv_total;
@@ -31,6 +36,9 @@ public class ProfileUsersActivity extends AppCompatActivity {
 
     private DatabaseReference mDataRefUsers;
     private DatabaseReference mDataFriendRequest;
+    private DatabaseReference mDataFriends;
+    private DatabaseReference mDataNotification;
+    private DatabaseReference mRootRef;
     private FirebaseUser mCurrentUser;
 
     private String mCurrenState;
@@ -47,6 +55,9 @@ public class ProfileUsersActivity extends AppCompatActivity {
 
         mDataRefUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(profileUid);
         mDataFriendRequest = FirebaseDatabase.getInstance().getReference().child("Friend_request");
+        mDataFriends = FirebaseDatabase.getInstance().getReference().child("Friends");
+        mDataNotification = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        mRootRef = FirebaseDatabase.getInstance().getReference();
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         mCurrenState = "not_friends";
@@ -70,7 +81,7 @@ public class ProfileUsersActivity extends AppCompatActivity {
 
                 Picasso.with(ProfileUsersActivity.this).load(image).placeholder(R.drawable.userprofile).into(mIv_profile);
 
-                /** TODO: xác nhận bạn bè khi được gửi lời mời kết bạn với user khác **/
+                /** TODO: xác nhận bạn bè khi được gửi lời mời kết bạn với user khác / LIST FRIENDS **/
                 mDataFriendRequest.child(mCurrentUser.getUid())
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -85,16 +96,47 @@ public class ProfileUsersActivity extends AppCompatActivity {
                                         mCurrenState = "req_sent";
                                         mBt_sendRequest.setText("Cancel sent request");
 
+                                        mBt_declineRequest.setVisibility(View.INVISIBLE);
+                                        mBt_declineRequest.setEnabled(false);
+
                                     } else if ( req_type.equals("received")) {
 
                                         mCurrenState = "req_received";
                                         mBt_sendRequest.setText("Accept friend request");
 
+                                        mBt_declineRequest.setVisibility(View.VISIBLE);
+                                        mBt_declineRequest.setEnabled(true);
+
                                     }
 
-                                }
+                                    mProgress.dismiss();
 
-                                mProgress.dismiss();
+                                } else {
+
+                                    mDataFriends.child(mCurrentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            if ( dataSnapshot.hasChild(profileUid)) {
+
+                                                mCurrenState = "friends";
+                                                mBt_sendRequest.setText("Unfriend this person");
+
+                                                mBt_declineRequest.setVisibility(View.INVISIBLE);
+                                                mBt_declineRequest.setEnabled(false);
+
+                                            }
+                                            mProgress.dismiss();
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            mProgress.dismiss();
+                                        }
+                                    });
+
+                                }
 
                             }
 
@@ -132,17 +174,30 @@ public class ProfileUsersActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
-                                        mBt_sendRequest.setEnabled(true);
-                                        mCurrenState = "req_sent";
-                                        mBt_sendRequest.setText("Cancel friend request");
+                                        HashMap<String, String> notification = new HashMap<>();
+                                        notification.put("from", mCurrentUser.getUid());
+                                        notification.put("type", "request");
 
-                                        TastyToast.makeText(ProfileUsersActivity.this, "Request sent successfully", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                                        mDataNotification.child(profileUid).push().setValue(notification).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                                mCurrenState = "req_sent";
+                                                mBt_sendRequest.setText("Cancel friend request");
+
+                                                mBt_declineRequest.setVisibility(View.INVISIBLE);
+                                                mBt_declineRequest.setEnabled(false);
+
+                                            }
+                                        });
+
                                     }
                                 });
 
                             } else {
                                 TastyToast.makeText(ProfileUsersActivity.this, "Failed sending request", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                             }
+                            mBt_sendRequest.setEnabled(true);
 
                         }
                     });
@@ -166,7 +221,57 @@ public class ProfileUsersActivity extends AppCompatActivity {
                                                     mCurrenState = "not_friends";
                                                     mBt_sendRequest.setText("Send friend request");
 
+                                                    mBt_declineRequest.setVisibility(View.INVISIBLE);
+                                                    mBt_declineRequest.setEnabled(false);
+
                                                     TastyToast.makeText(ProfileUsersActivity.this, "Cancel sent successfully", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+
+                                                }
+                                            });
+
+                                }
+                            });
+
+                }
+
+                /** TODO: Khi ấn đồng ý kết bạn  **/
+                if ( mCurrenState.equals("req_received")) {
+
+                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+
+                    mDataFriends.child(mCurrentUser.getUid()).child(profileUid).child("date").setValue(currentDate)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+                                    mDataFriends.child(profileUid).child(mCurrentUser.getUid()).child("date").setValue(currentDate)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+
+                                                    /** TODO: khi đồng ý kết bạn => xóa dữ liệu gửi lời mời kết bạn **/
+                                                    mDataFriendRequest.child(mCurrentUser.getUid()).child(profileUid).removeValue()
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+
+                                                                    mDataFriendRequest.child(profileUid).child(mCurrentUser.getUid()).removeValue()
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void aVoid) {
+
+                                                                                    mBt_sendRequest.setEnabled(true);
+                                                                                    mCurrenState = "friends";
+                                                                                    mBt_sendRequest.setText("Unfriend this person");
+
+                                                                                    mBt_declineRequest.setVisibility(View.INVISIBLE);
+                                                                                    mBt_declineRequest.setEnabled(false);
+
+                                                                                }
+                                                                            });
+
+                                                                }
+                                                            });
 
                                                 }
                                             });

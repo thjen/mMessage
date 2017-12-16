@@ -27,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.sdsmdg.tastytoast.TastyToast;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -68,6 +70,7 @@ public class SettingActivity extends AppCompatActivity {
 
         String uid = user.getUid();
         dataRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        dataRef.keepSynced(true); // TODO: tự động tải dữ liệu lưu vào ổ cứng đt khi có kết nối mạng
 
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,14 +78,28 @@ public class SettingActivity extends AppCompatActivity {
 
                 String name = dataSnapshot.child("name").getValue().toString();
                 status = dataSnapshot.child("status").getValue().toString();
-                String image = dataSnapshot.child("image").getValue().toString();
+                final String image = dataSnapshot.child("image").getValue().toString();
                 String thumb = dataSnapshot.child("thumb_image").getValue().toString();
 
                 tvName.setText(name);
                 tvStatus.setText(status);
 
                 if ( !image.equals("user image") ) { // user đã được set image
-                    Picasso.with(SettingActivity.this).load(image).placeholder(R.drawable.user).into(circleImage);
+
+                    Picasso.with(SettingActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE)
+                            .placeholder(R.drawable.user).into(circleImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+
+                            Picasso.with(SettingActivity.this).load(image).placeholder(R.drawable.user).into(circleImage);
+                        }
+                    });
+
                 }
 
             }
